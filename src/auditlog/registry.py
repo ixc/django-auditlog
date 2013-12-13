@@ -1,4 +1,4 @@
-from django.db.models.signals import pre_save, post_save, post_delete
+from django.db.models.signals import pre_save, post_save, pre_delete
 from django.db.models import Model
 from auditlog.receivers import log_create, log_update, log_delete
 
@@ -17,7 +17,7 @@ class AuditLogModelRegistry(object):
         if update:
             self._signals[pre_save] = log_update
         if delete:
-            self._signals[post_delete] = log_delete
+            self._signals[pre_delete] = log_delete
 
         if custom is not None:
             self._signals.update(custom)
