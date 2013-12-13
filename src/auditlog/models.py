@@ -104,7 +104,7 @@ class LogEntry(models.Model):
         changes_result = []
         changes_dict = json.loads(self.changes.encode('utf-8'))
         for field, changes in changes_dict.items():
-            changes_result.append('<strong>%s</strong> from %s <strong>to</strong> %s' % (field, changes[0], changes[1]))
+            changes_result.append('%s from <strong>%s</strong> to <strong>%s</strong>' % (field, changes[0], changes[1]))
         return changes_result
         
 
