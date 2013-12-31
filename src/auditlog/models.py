@@ -25,7 +25,7 @@ class LogEntryManager(models.Manager):
             if not 'object_pk' in kwargs:
                 kwargs['object_pk'] = instance.pk
             if not 'object_repr' in kwargs:
-                kwargs['object_repr'] = str(instance)
+                kwargs['object_repr'] = unicode(instance)
             if not 'object_id' in kwargs:
                 pk_field = instance._meta.pk.name
                 pk = getattr(instance, pk_field, None)
