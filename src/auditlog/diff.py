@@ -27,7 +27,7 @@ def model_instance_diff(old, new):
         new_value = str(getattr(new, field.name, None))
 
         if old_value != new_value:
-            diff[field.name] = (old_value, new_value)
+            diff[field.verbose_name] = (old_value, new_value)
 
     if len(diff) == 0:
         diff = None
