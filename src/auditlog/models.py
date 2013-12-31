@@ -100,11 +100,20 @@ class LogEntry(models.Model):
 
         return fstring.format(repr=self.object_repr)
 
-    def html_formated_changes(self):
+    def html_formated_changes(self, template=None):
+        """
+        Return a list of string for each log registry. 
+        Usefull for html printing. The formats in the string must include a parenthesised mapping 
+        key with the keys: modified_field, old_value and new_value.
+        """
+        
         changes_result = []
+        if not template:
+            template = '<p><strong>%(modified_field)s</strong> changed from <strong>%(old_value)s</strong> to <strong>%(new_value)s</strong></p>'
         changes_dict = json.loads(self.changes.encode('utf-8'))
         for field, changes in changes_dict.items():
-            changes_result.append('%s from <strong>%s</strong> to <strong>%s</strong>' % (field, changes[0], changes[1]))
+            mapping = {'modified_field': field.capitalize(), 'old_value': changes[0], 'new_value': changes[1]}
+            changes_result.append(template % mapping)
         return changes_result
         
 
