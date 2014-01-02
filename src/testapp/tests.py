@@ -22,7 +22,7 @@ class SimpleModelTest(TestCase):
             self.assertTrue(False, "Log entry exists")
         else:
             self.assertEqual(history.action, LogEntry.Action.CREATE, msg="Action is 'CREATE'")
-            self.assertEqual(history.object_repr, str(obj), msg="Representation is equal")
+            self.assertEqual(history.object_repr, unicode(obj), msg="Representation is equal")
 
     def test_update(self):
         """Updates are logged correctly."""
@@ -61,7 +61,7 @@ class SimpleModelTest(TestCase):
 
 class AltPrimaryKeyModelTest(SimpleModelTest):
     def setUp(self):
-        self.obj = AltPrimaryKeyModel.objects.create(key=str(datetime.datetime.now()), text='I am strange.')
+        self.obj = AltPrimaryKeyModel.objects.create(key=unicode(datetime.datetime.now()), text='I am strange.')
 
 
 class ProxyModelTest(SimpleModelTest):
